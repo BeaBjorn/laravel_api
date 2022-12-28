@@ -19,7 +19,7 @@ class ProductController extends Controller
     }
 
     
-
+//===================THIS STORES PRODUCT WITHOUT LINK TO CATEGORY=====================//
     /**
      * Store a newly created resource in storage.
      *
@@ -27,7 +27,8 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-     
+     /*
+
     public function store(Request $request)
     {
         $request->validate([
@@ -40,6 +41,8 @@ class ProductController extends Controller
 
         return Product::create($request->all());
     }
+    */
+//===================================================================================//    
 
     
     public function addProduct(Request $request, $id){
@@ -51,7 +54,7 @@ class ProductController extends Controller
             ], 404);
         }
 
-        /*
+        
         $request->validate([
             'name' => 'required',
             'description' => 'required',
@@ -59,15 +62,33 @@ class ProductController extends Controller
             'units' => 'required',
             'image' => 'required'
         ]);
-        */
+        
 
         $product = new Product();
-        $product->product = $request->product;
+        $product->name = $request->name;
+        $product->description = $request->description;
+        $product->price = $request->price;
+        $product->units = $request->units;
+        $product->image = $request->image;
         $category->products()->save($product);
 
         return response()->json([
             'Product added to category'
         ], 200);
+    }
+
+
+    public function getProductsPerCategory($id){
+        $category = Category::find($id);
+
+        if($category == null){
+            return response()->json([
+                'Category not found!'
+            ], 404);
+        }
+
+        $products = Category::find($id)->products;
+        return $products;
     }
 
     /**
