@@ -24,6 +24,9 @@ Route::resource('products', ProductController::class);
 Route::get('getproducts/{id}', [ProductController::class, 'getProductsPerCategory']);
 Route::post('addproducts/{id}', [ProductController::class, 'addProduct']);
 
+Route::get('product/search/{name}', [ProductController::class, 'searchProduct']);
+Route::get('category/search/{name}', [CategoryController::class, 'searchCategory']);
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });

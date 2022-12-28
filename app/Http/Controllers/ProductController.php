@@ -27,7 +27,7 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-     /*
+     
     public function store(Request $request)
     {
         $request->validate([
@@ -41,7 +41,7 @@ class ProductController extends Controller
         return Product::create($request->all());
     }
 
-    */
+    
     public function addProduct(Request $request, $id){
         $category = Category::find($id);
 
@@ -127,5 +127,9 @@ class ProductController extends Controller
                 'Product not found!'
             ], 404);
         }
+    }
+
+    public function searchProduct($name){
+        return Product::where('name', 'like', '%' . $name . '%')->get();
     }
 }

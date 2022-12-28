@@ -91,4 +91,8 @@ class CategoryController extends Controller
             ], 404);
         }
     }
+
+    public function searchCategory($name){
+        return Category::where('name', 'like', '%' . $name . '%')->get();
+    }
 }
